@@ -14,6 +14,10 @@ export default new Router({
     //   component: HelloWorld
     // },
     {
+      path: '/',
+      redirect: '/user/Home'
+    },
+    {
       path: '/user/Login',
       name: 'Login',
       component: Login
@@ -22,10 +26,6 @@ export default new Router({
       path: '/user/Home',
       name: 'Home',
       component: Home
-    },
-    {
-      path: '/',
-      redirect: '/user/Home'
     }
   ],
   // 去掉地址中的#号

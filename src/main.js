@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+// import Demo from '@/components/Demo'
 // import Layout from './components/Layout'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
