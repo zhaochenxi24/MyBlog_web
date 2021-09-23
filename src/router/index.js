@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import HelloWorld from '../views/HelloWorld'
 import Login from '../views/user/Login'
+import Register from '../views/user/Register'
 import Home from '../views/user/Home'
 
 Vue.use(Router)
@@ -21,6 +22,11 @@ export default new Router({
       path: '/user/Login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/user/Register',
+      name: 'Register',
+      component: Register
     },
     {
       path: '/user/Home',

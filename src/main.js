@@ -7,13 +7,18 @@ import router from './router'
 // import Layout from './components/Layout'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+// V - Distpicker 是一个简单易用的地区选择器
+import VDistpicker from 'v-distpicker'
 
 // 全局注册axios
 var axios = require('axios')
 // 全局注册，之后可在其他组件中通过 this.$axios 发送数据
 Vue.prototype.$axios = axios
 // 设置反向代理,前端请求默认发送到 http://localhost:8888
-axios.defaults.baseURL = 'http://localhost:81/user'
+axios.defaults.baseURL = 'http://localhost:81'
+
+// 地区选择器
+Vue.component('v-distpicker', VDistpicker)
 
 // 关闭生产提示
 Vue.config.productionTip = false

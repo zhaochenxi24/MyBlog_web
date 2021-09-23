@@ -29,7 +29,7 @@
                    @click="userLogin()">登录</el-button>
       </el-form-item>
       <div class="register">
-        还没有账号？<a href="">点击注册</a>
+        还没有账号？<a href="http://localhost/user/register">点击注册</a>
       </div>
     </el-form>
   </body>
@@ -51,7 +51,7 @@ export default {
   methods: {
     userLogin () {
       this.$axios
-        .post('/login', {
+        .post('/user/login', {
           userAccount: this.loginForm.userAccount,
           userPwd: this.loginForm.userPwd
           // rememberMe: this.loginForm.rememberMe
