@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Login from '../views/user/Login'
 import Register from '../views/user/Register'
 import Home from '../views/user/Home'
+import test from '../views/user/test'
 
 Vue.use(Router)
 
@@ -32,6 +33,10 @@ export default new Router({
       path: '/user/Home',
       name: 'Home',
       component: Home
+    }, {
+      path: '/user/test',
+      name: 'test',
+      component: test
     }
   ],
   // 去掉地址中的#号

@@ -1,42 +1,45 @@
 <template>
   <el-form ref="form"
            :model="form"
+           :rules="rules"
            label-width="80px"
            class="register-container">
     <h3 class="register-log">logo</h3>
     <el-form-item label="昵称:"
-                  required>
-      <el-input v-model="form.name"
-                clearable></el-input>
+                  prop="name">
+      <el-input v-model="
+                  form.name"
+                clearable>
+      </el-input>
     </el-form-item>
-    <el-form-item label="性别:">
+    <el-form-item label="性别:"
+                  prop="sex">
       <el-radio-group v-model="form.sex">
         <el-radio label="1">男</el-radio>
         <el-radio label="0">女</el-radio>
       </el-radio-group>
     </el-form-item>
     <el-form-item label="邮箱:"
-                  required>
+                  prop="email">
       <el-input v-model="form.email"
                 clearable></el-input>
     </el-form-item>
     <el-form-item label="手机号:"
-                  required>
+                  prop="phoneNum">
       <el-input v-model="form.phoneNum"
                 maxlength="11"
                 show-word-limit
                 clearable></el-input>
     </el-form-item>
     <el-form-item label="密码:"
-                  required>
+                  prop="userPwd">
       <el-input v-model="form.userPwd"
                 show-password></el-input>
     </el-form-item>
     <el-form-item label="确认密码"
-                  required>
-      <el-input v-model="form.confirmUserPwd"
-                show-password
-                @blur="confirmePwd"></el-input>
+                  prop="confirmeUserPwd">
+      <el-input v-model="form.confirmeUserPwd"
+                show-password></el-input>
     </el-form-item>
     <el-form-item label="生日:">
       <el-col :span="11">
@@ -70,37 +73,41 @@ export default {
         email: '',
         phoneNum: '',
         userPwd: '',
-        confirmUserPwd: '',
+        confirmeUserPwd: '',
         birthdate: '',
         address: ''
+      },
+      rules: {
+        name: [
+          { required: true, message: '请输入用户名', trigger: 'blur' }
+        ],
+        sex: [
+          { required: true, message: '请输入活动名称', trigger: 'change' }
+        ],
+        email: [
+          { required: true, message: '请输入活动名称', trigger: 'blur' }
+        ],
+        phoneNum: [
+          { required: true, message: '请输入手机号', trigger: 'blur' },
+          { min: 11, max: 11, message: '请输入正确的手机号', trigger: 'blur' }
+        ],
+        userPwd: [
+          { required: true, message: '请输入密码', trigger: 'blur' }
+        ],
+        confirmeUserPwd: [
+          { required: true, message: '请再次输入密码', trigger: 'blur' }
+        ]
       },
       responseResult: []
     }
   },
   methods: {
-    confirmePwd () {
-      if (this.form.userPwd !== this.form.confirmUserPwd) {
-        this.$message({
-          showClose: true,
-          message: '两次密码输入不一致',
-          type: 'error'
-        })
-      }
-    },
     onSubmit () {
-      if (this.form.userPwd !== this.form.confirmUserPwd) {
-        this.$message({
-          showClose: true,
-          message: '两次密码输入不一致',
-          type: 'error'
-        })
-        return
-      }
       this.$axios
         .post('/user/register', {
           userName: this.form.name,
           userPwd: this.form.userPwd,
-
+          confirmeUserPwd: this.form.confirmeUserPwd,
           userSex: this.form.sex,
           userEmail: this.form.email,
           userPhonenumber: this.form.phoneNum,
@@ -128,6 +135,12 @@ export default {
               message: successResponse.data.errMessage,
               type: 'error'
             })
+          } else if (successResponse.data.errCode === 407) {
+            this.$message({
+              showClose: true,
+              message: successResponse.data.errMessage,
+              type: 'error'
+            })
           } else if (successResponse.data.errCode === 402) {
             this.$message({
               showClose: true,
@@ -135,13 +148,6 @@ export default {
               type: 'error'
             })
           }
-          // } else if (this.form.confirmUserPwd !== this.form.userPwd) {
-          //   this.$message({
-          //     showClose: true,
-          //     message: '两次密码输入不一致',
-          //     type: 'erroe'
-          //   })
-          // }
         })
         .catch(failResponse => {
         })
