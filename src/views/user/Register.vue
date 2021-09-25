@@ -159,7 +159,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 body a {
   text-decoration: none;
   color: darkblue;
