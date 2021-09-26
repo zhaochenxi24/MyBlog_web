@@ -66,6 +66,30 @@
 export default {
   name: 'Register',
   data () {
+    /* 二次输入密码 */
+    var validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
+      } else if (value !== this.form.userPwd) {
+        callback(new Error('两次输入密码不一致!'))
+      } else {
+        callback()
+      }
+    }
+    /* 是否邮箱 */
+    var isEmail = (rule, value, callback) => {
+      // eslint-disable-next-line no-useless-escape
+      const reg = /^([a-zA-Z0-9]+[-_\.]?)+@[a-zA-Z0-9]+\.[a-z]+$/
+      if (value === '' || value === undefined || value == null) {
+        callback()
+      } else {
+        if (!reg.test(value)) {
+          callback(new Error('请输入正确的邮箱地址'))
+        } else {
+          callback()
+        }
+      }
+    }
     return {
       form: {
         name: '',
@@ -79,23 +103,22 @@ export default {
       },
       rules: {
         name: [
-          { required: true, message: '请输入用户名', trigger: 'blur' }
-        ],
-        sex: [
-          { required: true, message: '请输入活动名称', trigger: 'change' }
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { min: 3, max: 15, message: '请输入3到15位用户名', trigger: 'blur' }
         ],
         email: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' }
+          { required: true, message: '请输入邮箱', trigger: 'blur' },
+          { validator: isEmail, trigger: 'blur' }
         ],
         phoneNum: [
           { required: true, message: '请输入手机号', trigger: 'blur' },
-          { min: 11, max: 11, message: '请输入正确的手机号', trigger: 'blur' }
+          { min: 11, max: 11, message: '请输入正确长度的手机号', trigger: 'blur' }
         ],
         userPwd: [
           { required: true, message: '请输入密码', trigger: 'blur' }
         ],
         confirmeUserPwd: [
-          { required: true, message: '请再次输入密码', trigger: 'blur' }
+          { validator: validatePass2, trigger: 'blur' }
         ]
       },
       responseResult: []

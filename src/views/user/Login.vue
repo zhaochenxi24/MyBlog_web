@@ -3,13 +3,15 @@
   <body id="login-page">
     <el-form class="login-container"
              label-position="left"
-             label-width="0px">
+             label-width="0px"
+             :rules="rules">
       <h3 class="login_title">logo</h3>
-      <el-form-item>
+      <el-form-item prop="userAccount">
         <el-input type="text"
                   v-model="loginForm.userAccount"
                   auto-complete="off"
-                  placeholder="账号"></el-input>
+                  placeholder="账号"
+                  oninput="value=value.replace(/[^\d]/g,'')"></el-input>
       </el-form-item>
       <el-form-item>
         <el-input type="password"
