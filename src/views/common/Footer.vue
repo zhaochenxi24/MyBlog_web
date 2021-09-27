@@ -18,6 +18,5 @@ export default {
 <style>
 /**页脚 */
 footer {
-  margin-top: 100px;
 }
 </style>

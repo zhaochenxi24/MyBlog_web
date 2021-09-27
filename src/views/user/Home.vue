@@ -111,6 +111,7 @@ a {
 */
 body {
   background-color: whitesmoke;
+  margin-top: 5%;
 }
 .el-main {
   height: 100%;

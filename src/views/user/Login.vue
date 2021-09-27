@@ -22,7 +22,7 @@
       <div class="down-btn">
         <el-checkbox v-model="loginForm.rememberMe"
                      label="记住我"></el-checkbox>
-        <a href=""
+        <a href="http://localhost/user/FindPwd"
            class="right-btn">忘记密码？</a>
       </div>
       <el-form-item style="width: 100%">

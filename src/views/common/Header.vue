@@ -1,5 +1,5 @@
 <template>
-  <el-row>
+  <el-row class="coustomHeader">
     <el-menu :default-active="activeIndex"
              class="el-menu-demo"
              mode="horizontal"
@@ -41,7 +41,7 @@
 </template>
 <script>
 export default {
-  name: 'Header',
+  name: 'coustomHeader',
   date () {
     return {
 
@@ -49,3 +49,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.coustomHeader {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+}
+</style>

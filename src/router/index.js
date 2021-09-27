@@ -5,6 +5,7 @@ import Login from '../views/user/Login'
 import Register from '../views/user/Register'
 import Home from '../views/user/Home'
 import test from '../views/user/test'
+import FindPwd from '../views/user/FindPwd'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/user/Register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/user/FindPwd',
+      name: 'FindPwd',
+      component: FindPwd
     },
     {
       path: '/user/Home',
