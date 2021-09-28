@@ -27,7 +27,7 @@
       <el-col :span="8">
         <el-input style="top: 10px"
                   placeholder="请输入内容"
-                  v-model="input"
+                  v-model="ser"
                   class="input-with-select">
           <el-button type="sbumit"
                      slot="append"
@@ -44,7 +44,12 @@ export default {
   name: 'coustomHeader',
   date () {
     return {
-
+      activeIndex: '1'
+    }
+  },
+  methods: {
+    handleSelect (key, keyPath) {
+      console.log(key, keyPath)
     }
   }
 }
