@@ -1,24 +1,22 @@
 <template>
 
   <body id="login-page">
-
     <div class="login-container">
       <h3 class="login_title">logo</h3>
       <!-- 登陆切换 -->
       <div class="TagPage">
-        <el-tabs v-model="activeName"
-                 type="card"
-                 @tab-click="handleClick">
+        <el-tabs type="card">
           <el-tab-pane label="账号登录">
+            <!-- 账号密码登录 -->
             <el-form label-position="left"
-                     label-width="0px"
-                     :rules="rules">
+                     label-width="0px">
               <el-form-item prop="userAccount">
                 <el-input type="text"
                           v-model="loginForm.userAccount"
                           auto-complete="off"
                           placeholder="账号"
                           oninput="value=value.replace(/[^\d]/g,'')"></el-input>
+                <!-- 只允许数字输入 -->
               </el-form-item>
               <el-form-item>
                 <el-input type="password"
@@ -42,8 +40,37 @@
               </div>
             </el-form>
           </el-tab-pane>
+          <!-- 手机登录 -->
           <el-tab-pane label="手机登录">
-
+            <el-form label-position="left"
+                     label-width="0px">
+              <el-form-item prop="userAccount">
+                <el-input type="text"
+                          v-model="phoneLoginForm.phoneNum"
+                          auto-complete="off"
+                          placeholder="请输入手机号"
+                          oninput="value=value.replace(/[^\d]/g,'')"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-input type="text"
+                          v-model="phoneLoginForm.confiremNum"
+                          auto-complete="off"
+                          placeholder="填入验证码"
+                          style="width:58%"></el-input>
+                <el-button class="button"
+                           @click="countDown"
+                           :disabled=!this.canClick
+                           style="float:right">{{content}}</el-button>
+              </el-form-item>
+              <el-form-item style="width: 100%">
+                <el-button type="primary"
+                           style="width: 100%;  border: none ;margin-top:20px;"
+                           @click="phoneLogIn()">登录</el-button>
+              </el-form-item>
+              <div class="register">
+                还没有账号？<a href="http://localhost/user/register">点击注册</a>
+              </div>
+            </el-form>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -57,15 +84,34 @@ export default {
   name: 'Login',
   data () {
     return {
+      content: '点击发送验证码',
+      timeout: 60,
+      canClick: true,
       loginForm: {
         userAccount: '',
         userPwd: ''
-        // rememberMe: ''
       },
-      responseResult: []
+      phoneLoginForm: {
+        phoneNum: '',
+        confiremNum: ''
+      }
     }
   },
   methods: {
+    countDown () {
+      this.content = this.timeout + 's后重新发送'
+      this.canClick = false
+      let clock = window.setInterval(() => {
+        this.timeout--
+        this.content = this.timeout + 's后重新发送'
+        if (this.timeout < 0) { // 当倒计时小于0时清除定时器
+          window.clearInterval(clock)
+          this.content = '重新发送验证码'
+          this.timeout = 60
+          this.canClick = true
+        }
+      }, 1000)
+    },
     userLogin () {
       this.$axios
         .post('/user/login', {
@@ -103,6 +149,13 @@ export default {
           }
         })
         .catch(failResponse => {
+        })
+    },
+    phoneLogIn () {
+      this.$axios
+        .post('/user/phoneLogin', {
+          phoneNum: this.phoneLoginForm.phoneNum,
+          userPwd: this.phoneLoginForm.confiremNum
         })
     }
   }
