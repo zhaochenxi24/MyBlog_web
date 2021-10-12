@@ -53,7 +53,7 @@
               </el-form-item>
               <el-form-item>
                 <el-input type="text"
-                          v-model="phoneLoginForm.confiremNum"
+                          v-model="phoneLoginForm.confirmNum"
                           auto-complete="off"
                           placeholder="填入验证码"
                           style="width:58%"></el-input>
@@ -67,9 +67,6 @@
                            style="width: 100%;  border: none ;margin-top:20px;"
                            @click="phoneLogIn()">登录</el-button>
               </el-form-item>
-              <div class="register">
-                还没有账号？<a href="http://localhost/user/register">点击注册</a>
-              </div>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -93,13 +90,25 @@ export default {
       },
       phoneLoginForm: {
         phoneNum: '',
-        confiremNum: ''
+        confirmNum: ''
       }
     }
   },
   methods: {
     countDown () {
-      this.$axios.get('/user/login').then()
+      this.$axios
+        .post('/user/sendCode', {
+          userPhonenumber: this.phoneLoginForm.phoneNum
+        })
+        .then(successResponse => {
+          if (successResponse.data.errCode === 401) {
+            this.$message({
+              showClose: true,
+              message: successResponse.data.errMessage,
+              type: 'error'
+            })
+          }
+        })
       this.content = this.timeout + 's后重新发送'
       this.canClick = false
       let clock = window.setInterval(() => {
@@ -155,8 +164,25 @@ export default {
     phoneLogIn () {
       this.$axios
         .post('/user/phoneLogin', {
-          phoneNum: this.phoneLoginForm.phoneNum,
-          userPwd: this.phoneLoginForm.confiremNum
+          userPhonenumber: this.phoneLoginForm.phoneNum,
+          confirmNum: this.phoneLoginForm.confirmNum
+        })
+        .then(successResponse => {
+          if (successResponse.data.errCode === 200) {
+            this.$router.replace({ path: '/user/home' })
+          } else if (successResponse.data.errCode === 401) {
+            this.$message({
+              showClose: true,
+              message: successResponse.data.errMessage,
+              type: 'error'
+            })
+          } else if (successResponse.data.errCode === 402) {
+            this.$message({
+              showClose: true,
+              message: successResponse.data.errMessage,
+              type: 'error'
+            })
+          }
         })
     }
   }

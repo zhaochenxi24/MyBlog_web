@@ -37,8 +37,8 @@
                 show-password></el-input>
     </el-form-item>
     <el-form-item label="确认密码"
-                  prop="confirmeUserPwd">
-      <el-input v-model="form.confirmeUserPwd"
+                  prop="confirmUserPwd">
+      <el-input v-model="form.confirmUserPwd"
                 show-password></el-input>
     </el-form-item>
     <el-form-item label="生日:">
@@ -97,7 +97,7 @@ export default {
         email: '',
         phoneNum: '',
         userPwd: '',
-        confirmeUserPwd: '',
+        confirmUserPwd: '',
         birthdate: '',
         address: ''
       },
@@ -117,7 +117,7 @@ export default {
         userPwd: [
           { required: true, message: '请输入密码', trigger: 'blur' }
         ],
-        confirmeUserPwd: [
+        confirmUserPwd: [
           { validator: validatePass2, trigger: 'blur' }
         ]
       },
@@ -130,7 +130,7 @@ export default {
         .post('/user/register', {
           userName: this.form.name,
           userPwd: this.form.userPwd,
-          confirmeUserPwd: this.form.confirmeUserPwd,
+          confirmUserPwd: this.form.confirmUserPwd,
           userSex: this.form.sex,
           userEmail: this.form.email,
           userPhonenumber: this.form.phoneNum,
