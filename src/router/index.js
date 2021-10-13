@@ -44,7 +44,7 @@ export default new Router({
       name: 'test',
       component: test
     }
-  ],
+  ]
   // 去掉地址中的#号
-  mode: 'history'
+  // mode: 'history'
 })

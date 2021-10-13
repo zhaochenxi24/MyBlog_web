@@ -35,7 +35,7 @@
         </el-input>
       </el-col>
       <el-menu-item index="6"
-                    class="pre-login"><a href="http://tongtong.website/user/login"><i class="el-icon-s-custom"></i></a></el-menu-item>
+                    class="pre-login"><a href="../#/user/login"><i class="el-icon-s-custom"></i></a></el-menu-item>
     </el-menu>
   </el-row>
 </template>

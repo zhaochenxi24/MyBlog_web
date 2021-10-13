@@ -57,7 +57,7 @@
     <el-form-item>
       <el-button type="primary"
                  @click="onSubmit()">立刻注册</el-button>
-      <el-button><a href="../user/login">返回登录</a></el-button>
+      <el-button><a href="../#/user/login">返回登录</a></el-button>
     </el-form-item>
   </el-form>
 

@@ -27,7 +27,7 @@
               <div class="down-btn">
                 <el-checkbox v-model="loginForm.rememberMe"
                              label="记住我"></el-checkbox>
-                <a href="../user/FindPwd"
+                <a href="../#/user/FindPwd"
                    class="right-btn">忘记密码？</a>
               </div>
               <el-form-item style="width: 100%">
@@ -36,7 +36,7 @@
                            @click="userLogin()">登录</el-button>
               </el-form-item>
               <div class="register">
-                还没有账号？<a href="../user/register">点击注册</a>
+                还没有账号？<a href="../#/user/register">点击注册</a>
               </div>
             </el-form>
           </el-tab-pane>
