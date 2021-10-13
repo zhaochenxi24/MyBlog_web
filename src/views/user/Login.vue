@@ -27,7 +27,7 @@
               <div class="down-btn">
                 <el-checkbox v-model="loginForm.rememberMe"
                              label="记住我"></el-checkbox>
-                <a href="http://localhost/user/FindPwd"
+                <a href="../user/FindPwd"
                    class="right-btn">忘记密码？</a>
               </div>
               <el-form-item style="width: 100%">
@@ -36,7 +36,7 @@
                            @click="userLogin()">登录</el-button>
               </el-form-item>
               <div class="register">
-                还没有账号？<a href="http://localhost/user/register">点击注册</a>
+                还没有账号？<a href="../user/register">点击注册</a>
               </div>
             </el-form>
           </el-tab-pane>
@@ -102,6 +102,12 @@ export default {
         })
         .then(successResponse => {
           if (successResponse.data.errCode === 401) {
+            this.$message({
+              showClose: true,
+              message: successResponse.data.errMessage,
+              type: 'error'
+            })
+          } else if (successResponse.data.errCode === 402) {
             this.$message({
               showClose: true,
               message: successResponse.data.errMessage,
@@ -175,6 +181,18 @@ export default {
               showClose: true,
               message: successResponse.data.errMessage,
               type: 'error'
+            })
+          } else if (successResponse.data.errCode === 403) {
+            this.$message({
+              showClose: true,
+              message: successResponse.data.errMessage,
+              type: 'warning'
+            })
+          } else if (successResponse.data.errCode === 405) {
+            this.$message({
+              showClose: true,
+              message: successResponse.data.errMessage,
+              type: 'warning'
             })
           } else if (successResponse.data.errCode === 402) {
             this.$message({
