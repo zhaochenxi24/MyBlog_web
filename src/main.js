@@ -15,7 +15,10 @@ var axios = require('axios')
 // 全局注册，之后可在其他组件中通过 this.$axios 发送数据
 Vue.prototype.$axios = axios
 // 设置反向代理,前端请求默认发送到 http://localhost:8888
+// 本地服务器
 axios.defaults.baseURL = 'http://localhost:81'
+// 服务器地址
+// axios.defaults.baseURL = 'http://tongtong.website:81/myblog'
 
 // 地区选择器
 Vue.component('v-distpicker', VDistpicker)
