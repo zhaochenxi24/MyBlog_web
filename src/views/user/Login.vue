@@ -209,11 +209,10 @@ export default {
 
 <style scoped>
 #login-page {
-  background-position: center;
   height: 100%;
   width: 100%;
   background-size: cover;
-  position: fixed;
+  position: relative;
 }
 body {
   margin: 0px;

@@ -32,8 +32,7 @@
         <!-- 标签页 -->
         <div class="TagPage">
           <el-tabs v-model="activeName"
-                   type="card"
-                   @tab-click="handleClick">
+                   type="card">
             <el-tab-pane label="最新文章">
               <div v-for="o in 4"
                    :key="o"
@@ -97,15 +96,20 @@ export default {
   name: 'Demo',
   components: {
     Header, Footer
+  },
+  data () {
+    return {
+      activeName: '0'
+    }
+  },
+  methods: {
+    handleClick (tab, event) {
+      console.log(tab, event)
+    }
   }
 }
 </script>
 <style>
-/**全局 */
-a {
-  text-decoration: none;
-}
-
 /**
 内容
 */
