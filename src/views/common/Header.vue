@@ -43,8 +43,7 @@
 </template>
 <script >
 export default {
-  name: 'coustomHeader',
-  date () {
+  data () {
     return {
       searchContent: ''
     }

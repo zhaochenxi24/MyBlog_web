@@ -7,7 +7,6 @@
 </template>
 <script>
 export default {
-  name: 'Footer',
   date () {
     return {
 
@@ -17,6 +16,4 @@ export default {
 </script>
 <style>
 /**页脚 */
-footer {
-}
 </style>
