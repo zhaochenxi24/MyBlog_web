@@ -57,7 +57,9 @@
     <el-form-item>
       <el-button type="primary"
                  @click="onSubmit()">立刻注册</el-button>
-      <el-button><a href="../#/user/login">返回登录</a></el-button>
+      <a href="../#/login">
+        <el-button>返回登录</el-button>
+      </a>
     </el-form-item>
   </el-form>
 
@@ -139,7 +141,7 @@ export default {
         })
         .then(successResponse => {
           if (successResponse.data.errCode === 200) {
-            this.$router.replace({ path: '/user/login' })
+            this.$router.replace({ path: '../login' })
           } else if (successResponse.data.errCode === 401) {
             this.$message({
               showClose: true,
