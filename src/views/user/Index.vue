@@ -6,9 +6,16 @@
         <el-carousel :interval="4000"
                      type="card"
                      height="200px">
-          <el-carousel-item v-for="item in 6"
-                            :key="item">
-            <h3 class="medium">{{ item }}</h3>
+          <el-carousel-item v-for="(item,index) in rotationList"
+                            :key="index">
+            <h3 class="medium">
+              <img src="../../assets/userIndexRotation/${item.src}"
+                   style=" max-width: 100%
+                        height: auto">
+              <!-- <img :src="require('../../assets/userIndexRotation/1.jpg')"
+                   style=" max-width: 100%
+                        height: auto"> -->
+            </h3>
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -21,7 +28,9 @@
                   :offset="index > 0 ? 2 : 0">
             <el-card class="TC-content">
               <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                   class="image" />
+                   class="image"
+                   style=" max-width: 100%
+                        height: auto" />
             </el-card>
           </el-col>
         </el-row>
@@ -88,7 +97,25 @@
 export default {
   data () {
     return {
-      activeName: '0'
+      activeName: '0',
+      rotationList: [
+        {
+          src: '../../assets/userIndexRotation/1.jpg'
+        }, {
+          src: '../../assets/userIndexRotation/2.jpg'
+        },
+        {
+          src: '../../assets/userIndexRotation/3.jpg'
+        },
+        {
+          src: '../../assets/userIndexRotation/4.jpg'
+        },
+        {
+          src: '../../assets/userIndexRotation/5.jpg'
+        },
+        {
+          src: '../../assets/userIndexRotation/6.jpg'
+        }]
     }
   },
   methods: {
@@ -117,16 +144,10 @@ body {
 .el-carousel__item h3 {
   color: #475669;
   font-size: 14px;
-  opacity: 0.75;
   line-height: 200px;
   margin: 0;
 }
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
-}
+
 /**标签页面的图片卡 */
 .TagCard .TC-content {
   height: 120px;

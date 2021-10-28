@@ -21,31 +21,41 @@ export default new Router({
       path: '/',
       redirect: '/Home'
     },
-
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: Register
-    },
-    {
-      path: '/findPwd',
-      name: 'findPwd',
-      component: FindPwd
-    },
     {
       path: '/Home',
       name: 'Home',
       component: Home
-    }, {
+    },
+    {
       path: '/switch/index',
       name: 'Switch',
       component: Switch
-    }, {
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+      meta: {
+        showNav: true
+      }
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register,
+      meta: {
+        showNav: true
+      }
+    },
+    {
+      path: '/findPwd',
+      name: 'findPwd',
+      component: FindPwd,
+      meta: {
+        showNav: true
+      }
+    },
+    {
       path: '/test',
       name: 'test',
       component: test

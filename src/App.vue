@@ -1,9 +1,8 @@
 <template>
   <div class="app">
-    <Header v-if="header_show"></Header>
-    <router-view v-on:Header="Header"
-                 v-on:footer="footer"></router-view>
-    <Footer v-if="footer_show"></Footer>
+    <Header v-if="!$route.meta.showNav"></Header>
+    <router-view></router-view>
+    <Footer v-if="!$route.meta.showNav"></Footer>
   </div>
 </template>
 <script>
