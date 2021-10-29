@@ -9,12 +9,12 @@
           <el-carousel-item v-for="(item,index) in rotationList"
                             :key="index">
             <h3 class="medium">
-              <img src="../../assets/userIndexRotation/${item.src}"
-                   style=" max-width: 100%
-                        height: auto">
-              <!-- <img :src="require('../../assets/userIndexRotation/1.jpg')"
+              <!-- <img src="../../assets/userIndexRotation/1.jpg"
                    style=" max-width: 100%
                         height: auto"> -->
+              <img :src="require('../../assets/userIndexRotation/1.jpg')"
+                   style=" max-width: 100%
+                        height: auto">
             </h3>
           </el-carousel-item>
         </el-carousel>
@@ -103,18 +103,8 @@ export default {
           src: '../../assets/userIndexRotation/1.jpg'
         }, {
           src: '../../assets/userIndexRotation/2.jpg'
-        },
-        {
+        }, {
           src: '../../assets/userIndexRotation/3.jpg'
-        },
-        {
-          src: '../../assets/userIndexRotation/4.jpg'
-        },
-        {
-          src: '../../assets/userIndexRotation/5.jpg'
-        },
-        {
-          src: '../../assets/userIndexRotation/6.jpg'
         }]
     }
   },
