@@ -14,8 +14,7 @@
                 <el-input type="text"
                           v-model="loginForm.userAccount"
                           auto-complete="off"
-                          placeholder="账号"
-                          oninput="value=value.replace(/[^\d]/g,'')"></el-input>
+                          placeholder="请输入账号或者邮箱"></el-input>
                 <!-- 只允许数字输入 -->
               </el-form-item>
               <el-form-item>
@@ -135,7 +134,7 @@ export default {
     userLogin () {
       this.$axios
         .post('/user/login', {
-          userAccount: this.loginForm.userAccount,
+          logInAccount: this.loginForm.userAccount,
           userPwd: this.loginForm.userPwd
           // rememberMe: this.loginForm.rememberMe
         })
@@ -179,7 +178,7 @@ export default {
         })
         .then(successResponse => {
           if (successResponse.data.errCode === 200) {
-            this.$router.replace({ path: '/user/home' })
+            this.$router.replace({ path: '../home' })
           } else if (successResponse.data.errCode === 401) {
             this.$message({
               showClose: true,

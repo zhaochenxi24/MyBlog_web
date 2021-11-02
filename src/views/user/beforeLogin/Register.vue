@@ -166,6 +166,12 @@ export default {
               message: successResponse.data.errMessage,
               type: 'error'
             })
+          } else if (successResponse.data.errCode === 408) {
+            this.$message({
+              showClose: true,
+              message: successResponse.data.errMessage,
+              type: 'error'
+            })
           } else if (successResponse.data.errCode === 402) {
             this.$message({
               showClose: true,

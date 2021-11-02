@@ -9,17 +9,14 @@
           <el-carousel-item v-for="(item,index) in rotationList"
                             :key="index">
             <h3 class="medium">
-              <!-- <img src="../../assets/userIndexRotation/1.jpg"
-                   style=" max-width: 100%
-                        height: auto"> -->
-              <img :src="require('../../assets/userIndexRotation/1.jpg')"
+              <img :src="item"
                    style=" max-width: 100%
                         height: auto">
             </h3>
           </el-carousel-item>
         </el-carousel>
       </div>
-      <!-- -->
+      <!--卡片图片展示 -->
       <div class="TagCard">
         <el-row>
           <el-col :span="4"
@@ -46,10 +43,19 @@
               <el-card class="box-card"
                        shadow="hover">
                 <div class="text item">
-                  {{ "最新文章 " }}
+                  <div class="el-image">
+                    <el-image src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                              fit="contain"
+                              alt=""></el-image>
+                  </div>
+                  <div class="title">
+                    <a href="">标题</a>
+                  </div>
+                  <div class="describtion">
+                    <a href="">描述</a>
+                  </div>
                 </div>
               </el-card>
-              <!-- <el-divider></el-divider> -->
             </div>
           </el-tab-pane>
           <el-tab-pane label="热门文章">
@@ -99,13 +105,13 @@ export default {
     return {
       activeName: '0',
       rotationList: [
-        {
-          src: '../../assets/userIndexRotation/1.jpg'
-        }, {
-          src: '../../assets/userIndexRotation/2.jpg'
-        }, {
-          src: '../../assets/userIndexRotation/3.jpg'
-        }]
+        require('../../assets/userIndexRotation/1.jpg'),
+        require('../../assets/userIndexRotation/2.jpg'),
+        require('../../assets/userIndexRotation/3.jpg'),
+        require('../../assets/userIndexRotation/1.jpg'),
+        require('../../assets/userIndexRotation/2.jpg'),
+        require('../../assets/userIndexRotation/3.jpg')
+      ]
     }
   },
   methods: {
@@ -140,21 +146,33 @@ body {
 
 /**标签页面的图片卡 */
 .TagCard .TC-content {
-  height: 120px;
+  height: 100%;
   width: 100%;
   margin: 10px;
   padding: 0;
 }
 /**标签页的内容卡片 */
-/* .TagPage .contentCard {
-} */
 .TagPage .box-card {
-  height: 150px;
+  height: 170px;
   margin-top: 5px;
   border: 0;
+}
+.TagPage .box-card .el-image {
+  height: 130px;
+  width: 200px;
 }
 .el-menu-demo {
   width: 100%;
   border: 0px;
+}
+.title {
+  left: 55%;
+  bottom: 130px;
+  position: relative;
+}
+.describtion {
+  left: 55%;
+  bottom: 100px;
+  position: relative;
 }
 </style>

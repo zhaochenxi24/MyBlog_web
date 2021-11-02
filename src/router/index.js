@@ -58,7 +58,10 @@ export default new Router({
     {
       path: '/test',
       name: 'test',
-      component: test
+      component: test,
+      meta: {
+        showNav: true
+      }
     },
     {
       path: '/manager/Index',
