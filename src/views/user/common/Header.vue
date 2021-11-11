@@ -27,9 +27,8 @@
         <el-menu-item index="3-3">杂项</el-menu-item>
       </el-submenu>
       <el-menu-item index="4"><a href="https://www.ele.me">话题</a></el-menu-item>
-
       <el-col :span="8">
-        <el-input style="top: 10px"
+        <el-input style="top: 10px;left:15%"
                   placeholder="请输入内容"
                   v-model="searchContent"
                   class="input-with-select">
@@ -39,7 +38,8 @@
         </el-input>
       </el-col>
       <el-menu-item index="5"
-                    class="pre-login"><a href="../#/login"><i class="el-icon-s-custom"></i></a></el-menu-item>
+                    class="pre-login"
+                    style="left:6.5%"><a href="../#/login"><i class="el-icon-s-custom"></i></a></el-menu-item>
     </el-menu>
 
   </el-row>
