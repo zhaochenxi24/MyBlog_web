@@ -35,10 +35,11 @@
       <!-- 标签页 -->
       <div class="TagPage">
         <el-tabs v-model="activeName"
-                 type="card">
+                 type="card"
+                 @tab-click='hotest'>
           <el-tab-pane label="最新文章">
-            <div v-for="o in 4"
-                 :key="o"
+            <div v-for="(item,index) in newestArticle"
+                 :key="index"
                  class="contentCard">
               <el-card class="box-card"
                        shadow="hover">
@@ -49,23 +50,33 @@
                               alt=""></el-image>
                   </div>
                   <div class="title">
-                    <a href="">标题</a>
+                    <a href="">{{item.title}}</a>
                   </div>
                   <div class="describtion">
-                    <a href="">描述</a>
+                    <a href="">{{item.abstr}}</a>
                   </div>
                 </div>
               </el-card>
             </div>
           </el-tab-pane>
           <el-tab-pane label="热门文章">
-            <div v-for="o in 4"
-                 :key="o"
+            <div v-for="(item,index) in newestArticle"
+                 :key="index"
                  class="contentCard">
               <el-card class="box-card"
                        shadow="hover">
                 <div class="text item">
-                  {{ "热门文章 " }}
+                  <div class="el-image">
+                    <el-image src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                              fit="contain"
+                              alt=""></el-image>
+                  </div>
+                  <div class="title">
+                    <a href="">{{item.title}}</a>
+                  </div>
+                  <div class="describtion">
+                    <a href="">{{item.abstr}}</a>
+                  </div>
                 </div>
               </el-card>
             </div>
@@ -97,10 +108,18 @@
         </el-tabs>
       </div>
     </el-main>
+
   </div>
 </template>
 <script>
+// import home from './Home.vue'
 export default {
+  // comments: {
+  //   home
+  // },
+  mounted: function () {
+    this.newest()
+  },
   data () {
     return {
       activeName: '0',
@@ -111,11 +130,36 @@ export default {
         require('../../assets/userIndexRotation/1.jpg'),
         require('../../assets/userIndexRotation/2.jpg'),
         require('../../assets/userIndexRotation/3.jpg')
-      ]
+      ],
+      newestArticle: {
+        id: '',
+        contentid: '',
+        title: '',
+        abstr: '',
+        categoryid: '',
+        categoryvalue: '',
+        imgurl: '',
+        createdate: '',
+        top: ''
+      }
     }
   },
   methods: {
     handleClick (tab, event) {
+    },
+    newest () {
+      this.$axios
+        .get('/index/newestArticle', {})
+        .then(res => {
+          this.newestArticle = res.data
+        })
+    },
+    hotest () {
+      this.$axios
+        .get('/index/hotestArticle', {})
+        .then(res => {
+          this.newestArticle = res.data
+        })
     }
   }
 }

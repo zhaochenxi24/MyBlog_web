@@ -9,6 +9,8 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // V - Distpicker 是一个简单易用的地区选择器
 import VDistpicker from 'v-distpicker'
+// 引入vant
+import Vant from 'vant'
 
 // 全局注册axios
 var axios = require('axios')
@@ -22,6 +24,8 @@ axios.defaults.baseURL = 'http://localhost:81'
 
 // 地区选择器
 Vue.component('v-distpicker', VDistpicker)
+// 瀑布流list
+Vue.use(Vant)
 
 // 关闭生产提示
 Vue.config.productionTip = false
