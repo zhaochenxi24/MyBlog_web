@@ -1,102 +1,69 @@
 <template>
+  <div>
+    <span :title="message">
+      {{123}}</span>
+    <p v-if="seen">现在你看到我了</p>
+    <ol>
+      <li v-for="todo in todos"
+          :key="todo.test">
+        {{ todo.test }}
+      </li>
+    </ol>
+    <button @click="reverseMessage">反转消息</button>
 
-  <van-pull-refresh v-model="isLoading"
-                    @refresh="onRefresh">
-    <div class="container">
-      <div v-if='noData'>
-        暂无数据
-      </div>
-      <template v-else>
-        <van-list v-model="loading"
-                  :finished="finished"
-                  finished-text="- 没有更多了 -"
-                  @load="onLoad"
-                  :offset="130">
-          <div v-for="(item,index) in newestArticle"
-               :key="index">
-            <a href="">{{item.title}}</a>
-          </div>
-        </van-list>
-      </template>
-    </div>
-  </van-pull-refresh>
+    <input type="text"
+           v-model="message">
+    {{message}}
+    <span v-once>这个将不会改变：{{message}}</span>
+    <p v-html="h">旺中哇嘎改变：{{h}} </p>
+    <span v-html="h">这个将不会改变：{{h}}</span>
+    <p :disabled="isDisable">p:{{message}}</p>
+    <button @[eventName]="reverseMessage">反转消息</button>
+    <p>{{revserseH}}</p>
+    <p>发布抓捕发布抓捕：{{revserseH}}</p>
+    <p v-if="isLoop">123</p>
+  </div>
 
 </template>
-
 <script>
 export default {
-  name: 'test',
+  components: {},
   data () {
     return {
-      page: 1,
-      loading: false, // 当loading为true时，转圈圈
-      finished: false, // 数据是否请求结束，结束会先显示- 没有更多了 -
-      newestArticle: {
-        id: '',
-        contentid: '',
-        title: '',
-        abstr: '',
-        categoryid: '',
-        categoryvalue: '',
-        imgurl: '',
-        createdate: '',
-        top: ''
-      },
-      noData: false, // 如果没有数据，显示暂无数据
-      isLoading: false // 下拉的加载图案
+      message: 'Hello Vue!' + new Date().toLocaleString(),
+      seen: true,
+      todos: [
+        { test: 'learn', test1: '12e' },
+        { test: 'study' },
+        { test: 'take' }
+      ],
+      template: '模板语法',
+      h: '<p>123</p>',
+      isDisable: true,
+      eventName: 'focus',
+      HH: ' ',
+      isLoop: true
     }
   },
+  // 如何生效
+  // component:
+  //   ('header-nav', {
+  //     template: '<li>这是一个待办事项</li>'
+  //   }),
   methods: {
-
-    getInfo () {
-      this.$axios
-        .get('/index/newestArticle', {
-          limit: 3, // 每页请求条数
-          page: this.page // 请求的页面
-        })
-        .then(res => {
-          // 当请求成功
-          if (res.code === 0) {
-            this.loading = false
-            this.myList = this.myList.concat(res.data)
-            this.page++
-            // 如果没有数据，显示暂无数据
-            if (this.myList.length === 0 && this.page === 1) {
-              this.noData = true
-            }
-            // 如果加载完毕，显示没有更多了
-            if (res.data.length === 0) {
-              this.finished = true
-            }
-          }
-        })
-        .catch(error => {
-          console.log(error)
-        })
+    reverseMessage () {
+      this.message = this.message.split('').reverse().join('')
     },
-    // 列表加载
-    onLoad () {
-      setTimeout(() => {
-        this.getInfo()
-        this.loading = true
-      }, 500)
-    },
-    onRefresh () {
-      setTimeout(() => {
-        // 重新初始化这些属性
-        this.isLoading = false
-        this.myList = []
-        this.page = 1
-        this.loading = false
-        this.finished = false
-        this.noData = false
-        // 请求信息
-        this.getInfo()
-      }, 500)
+    revserseHH () {
+      return this.h.split('').reverse().join('')
+    }
+  },
+  computed: {
+    revserseH () {
+      return this.h.split('').reverse().join('')
     }
   }
 }
 </script>
-
 <style scoped>
 </style>

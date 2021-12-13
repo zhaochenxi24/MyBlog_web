@@ -18,16 +18,17 @@
       </div>
       <!--卡片图片展示 -->
       <div class="TagCard">
-        <el-row>
-          <el-col :span="4"
-                  v-for="(o, index) in 4"
+        <el-row class="TC">
+          <el-col :span="5"
+                  v-for="o in 4"
                   :key="o"
-                  :offset="index > 0 ? 2 : 0">
-            <el-card class="TC-content">
-              <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                   class="image"
-                   style=" max-width: 100%
-                        height: auto" />
+                  class="TC-content">
+            <el-card :body-style="{ padding: '0px' }">
+              <a href=""><img src="../../assets/userIndexRotation/3.jpg"
+                     class="image"></a>
+              <div class="TC-test">
+                <a href="">好吃的汉堡</a>
+              </div>
             </el-card>
           </el-col>
         </el-row>
@@ -35,72 +36,97 @@
       <!-- 标签页 -->
       <div class="TagPage">
         <el-tabs v-model="activeName"
-                 type="card"
-                 @tab-click='hotest'>
-          <el-tab-pane label="最新文章">
+                 type="card">
+          <el-tab-pane label="最新文章"
+                       v-infinite-scroll="load"
+                       infinite-scroll-disabled="disabled">
             <div v-for="(item,index) in newestArticle"
                  :key="index"
                  class="contentCard">
               <el-card class="box-card"
                        shadow="hover">
-                <div class="text item">
-                  <div class="el-image">
+                <div class="el-image">
+                  <a href="">
                     <el-image src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
                               fit="contain"
                               alt=""></el-image>
-                  </div>
-                  <div class="title">
-                    <a href="">{{item.title}}</a>
-                  </div>
-                  <div class="describtion">
-                    <a href="">{{item.abstr}}</a>
-                  </div>
+                  </a>
+                </div>
+                <div class="title">
+                  <a v-bind:[attributeName]="url">{{item.title}}</a>
+                </div>
+                <div class="describtion">
+                  <a v-bind:[attributeName]="url">{{item.abstr}}</a>
                 </div>
               </el-card>
             </div>
+            <div class="loadAndNoMore">
+              <p v-if="loading">加载中...</p>
+              <p v-if="noMore">没有更多了</p>
+            </div>
           </el-tab-pane>
           <el-tab-pane label="热门文章">
-            <div v-for="(item,index) in newestArticle"
+            <div v-for="(item,index) in hotsArticle"
                  :key="index"
                  class="contentCard">
               <el-card class="box-card"
                        shadow="hover">
-                <div class="text item">
-                  <div class="el-image">
+                <div class="el-image">
+                  <a href="">
                     <el-image src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
                               fit="contain"
                               alt=""></el-image>
-                  </div>
-                  <div class="title">
-                    <a href="">{{item.title}}</a>
-                  </div>
-                  <div class="describtion">
-                    <a href="">{{item.abstr}}</a>
-                  </div>
+                  </a>
+                </div>
+                <div class="title">
+                  <a href="">{{item.title}}</a>
+                </div>
+                <div class="describtion">
+                  <a href="">{{item.abstr}}</a>
                 </div>
               </el-card>
             </div>
           </el-tab-pane>
           <el-tab-pane label="评论最多">
-            <div v-for="o in 4"
-                 :key="o"
+            <div v-for="(item,index) in commentsArticle"
+                 :key="index"
                  class="contentCard">
               <el-card class="box-card"
                        shadow="hover">
-                <div class="text item">
-                  {{ "评论最多 " }}
+                <div class="el-image">
+                  <a href="">
+                    <el-image src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                              fit="contain"
+                              alt=""></el-image>
+                  </a>
+                </div>
+                <div class="title">
+                  <a href="">{{item.title}}</a>
+                </div>
+                <div class="describtion">
+                  <a href="">{{item.abstr}}</a>
                 </div>
               </el-card>
             </div>
           </el-tab-pane>
           <el-tab-pane label="点赞最多">
-            <div v-for="o in 4"
-                 :key="o"
+            <div v-for="(item,index) in likesArticle"
+                 :key="index"
                  class="contentCard">
               <el-card class="box-card"
                        shadow="hover">
-                <div class="text item">
-                  {{ "点赞最多" }}
+                <div class="el-image">
+                  <a href="">
+                    <el-image src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                              fit="contain"
+                              alt=""></el-image>
+                  </a>
+                </div>
+                <div class="title">
+                  <a href="">{{item.title}}</a>
+                </div>
+                <div class="describtion">
+                  <a href="">{{item.abstr}}</a>
                 </div>
               </el-card>
             </div>
@@ -114,14 +140,25 @@
 <script>
 // import home from './Home.vue'
 export default {
-  // comments: {
-  //   home
-  // },
+  computed: {
+    noMore () {
+      return this.newestArticle.length >= 7
+    },
+    disabled () {
+      return this.loading || this.noMore
+    }
+  },
+
   mounted: function () {
     this.newest()
+    this.hots()
+    this.comments()
+    this.likes()
   },
   data () {
     return {
+      loading: false,
+      tagcard: '1',
       activeName: '0',
       rotationList: [
         require('../../assets/userIndexRotation/1.jpg'),
@@ -131,21 +168,36 @@ export default {
         require('../../assets/userIndexRotation/2.jpg'),
         require('../../assets/userIndexRotation/3.jpg')
       ],
+      // jason数据定于变量为数组即可
+      // newestArticle: {
+      //   id: '',
+      //   contentid: '',
+      //   title: '',
+      //   abstr: '',
+      //   categoryid: '',
+      //   categoryvalue: '',
+      //   imgurl: '',
+      //   createdate: '',
+      //   top: ''
+      // },
       newestArticle: {
-        id: '',
-        contentid: '',
-        title: '',
-        abstr: '',
-        categoryid: '',
-        categoryvalue: '',
-        imgurl: '',
-        createdate: '',
-        top: ''
+      },
+      hotsArticle: {
+      },
+      commentsArticle: {
+      },
+      likesArticle: {
       }
     }
   },
   methods: {
-    handleClick (tab, event) {
+    load () {
+      this.loading = true
+      console.log(this.newestArticle)
+      setTimeout(() => {
+        this.page++
+        this.loading = false
+      }, 1000)
     },
     newest () {
       this.$axios
@@ -154,20 +206,32 @@ export default {
           this.newestArticle = res.data
         })
     },
-    hotest () {
+    hots () {
       this.$axios
-        .get('/index/hotestArticle', {})
+        .get('/index/hotsArticle', {})
         .then(res => {
-          this.newestArticle = res.data
+          this.hotsArticle = res.data
+        })
+    },
+    comments () {
+      this.$axios
+        .get('/index/commentsArticle', {})
+        .then(res => {
+          this.commentsArticle = res.data
+        })
+    },
+    likes () {
+      this.$axios
+        .get('/index/likesArticle', {})
+        .then(res => {
+          this.likesArticle = res.data
         })
     }
   }
 }
 </script>
 <style>
-/**
-内容
-*/
+/**内容*/
 body {
   background-color: whitesmoke;
   margin-top: 5%;
@@ -189,12 +253,29 @@ body {
 }
 
 /**标签页面的图片卡 */
-.TagCard .TC-content {
+.TagCard .TC {
   height: 100%;
   width: 100%;
   margin: 10px;
   padding: 0;
 }
+/* 卡片间隙调整 */
+.TagCard .TC-content {
+  margin-right: 2%;
+  margin-left: 2%;
+}
+/* 文字调整 */
+.TagCard .TC-test {
+  padding: 10px;
+  margin-left: 20%;
+}
+/* 图片调整 */
+.TagCard .image {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
 /**标签页的内容卡片 */
 .TagPage .box-card {
   height: 170px;
@@ -218,5 +299,8 @@ body {
   left: 55%;
   bottom: 100px;
   position: relative;
+}
+.loadAndNoMore {
+  text-align: center;
 }
 </style>
